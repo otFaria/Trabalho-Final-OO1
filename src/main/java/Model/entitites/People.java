@@ -26,8 +26,7 @@ public class People{
     }
     
     
-   
-
+ 
     //Hash and equals
     
     
