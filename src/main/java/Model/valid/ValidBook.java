@@ -1,6 +1,7 @@
 package Model.valid;
 
 import Model.entitites.Book;
+import Model.exceptions.BookException;
 
 public class ValidBook {
 
@@ -10,25 +11,20 @@ public class ValidBook {
 
         // Verificar se o ID do livro não está vazio
         if (id.isEmpty()) {
-            // Tratar exceção: ID não pode ser vazio
-            System.out.println("ID do livro não pode ser vazio.");
-            return null;
+            throw new BookException("Error - Field empty");
         }
+        
         book.setId(id);
 
         // Verificar se o nome do livro não está vazio
         if (name.isEmpty()) {
-            // Tratar exceção: Nome não pode ser vazio
-            System.out.println("Nome do livro não pode ser vazio.");
-            return null;
+            throw new BookException("Error - Field empty");
         }
         book.setName(name);
 
         // Verificar se o autor do livro não é nulo
         if (author_id.isEmpty()) {
-            // Tratar exceção: Autor não pode ser nulo
-            System.out.println("ID Autor nulo");
-            return null;
+           throw new BookException("Error - Field empty");
         }
         
         book.setAuthorID(id);

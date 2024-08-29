@@ -1,6 +1,7 @@
 package Model.valid;
 
 import Model.entitites.Author;
+import Model.exceptions.AuthorException;
 
 public class ValidAuthor {
     
@@ -9,19 +10,19 @@ public class ValidAuthor {
         Author author = new Author();
         
         if (cpf.isEmpty()){
-            //Tratar exeption
+            throw new AuthorException("Error - Field empty!");
         }
 
         author.setCpf(cpf);
 
         if(name.isEmpty()){
-            //Tratar exeption
+            throw new AuthorException("Error - Field empty!");
         }
 
         author.setName(name);
 
         if(hometown.isEmpty()){
-            //Tratar exeption
+            throw new AuthorException("Error - Field empty!");
         }
 
         author.setHometown(hometown);
