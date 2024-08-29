@@ -6,78 +6,70 @@ import Model.valid.ValidAuthor;
 import java.util.List;
 
 public class AuthorController {
-    
-    IDao repositorio;
-    
 
-    public AuthorController() {
-        
+    private IDao repository;
+
+    public AuthorController(IDao repository) {
+        this.repository = repository;
     }
-   
-    
-    //SAVE IN THE BD or FILE
-    
-    
-    public void Add_Author(Author A1){
-        
-        Author validated = new Author();
+
+    // Método para adicionar um autor
+    public void addAuthor(String cpf, String name, String hometown) {
+
         ValidAuthor validation = new ValidAuthor();
-        validated = validation.ValidAuthor(A1.getCpf(), A1.getName(), A1.getHometown());
-        
-        Author finded = new Author();
-        finded = (Author) repositorio.find(A1.getCpf());
-        
-        if (finded == null) {
-           
-            //Save file;
-            
-            //IDao.save();
-            
-        }else{
-            System.out.println("Althor already registered");
+        Author validatedAuthor = validation.ValidAuthor(cpf, name, hometown);
+
+        if (validatedAuthor != null) {
+            Author foundAuthor = (Author) repository.find(cpf);
+
+            if (foundAuthor == null) {
+                // Salvar no repositório (ex: arquivo, banco de dados)
+                repository.save(validatedAuthor);
+
+                System.out.println("Author added with success.");
+            } else {
+                System.out.println("An author with this CPF already exists.");
+            }
+        } else {
+            System.out.println("Invalid data for the author.");
         }
     }
-    
-    
-    public void Remove_Author(String cpf){
-        
-        
-        Author finded = (Author) repositorio.find(cpf);
-         
-        if (finded != null){
-            List<Author> list_author = repositorio.findAll();
-            list_author.remove(finded);
-              System.out.println("Remove success");
-              
-              //Serializador Json
-              
-        }else{
-              System.out.println("i didn't find this author ");
+
+    // Método para remover um autor pelo CPF
+    public void removeAuthor(String cpf) {
+        Author foundAuthor = (Author) repository.find(cpf);
+
+        if (foundAuthor != null) {
+            repository.delete(cpf);
+
+            System.out.println("Author removed with success.");
+        } else {
+            System.out.println("Author not found!");
         }
     }
-    
-    public void Update_Author(String cpf, Author new_Author){
-        
+
+    // Método para atualizar um autor pelo CPF
+    public void updateAuthor(String cpf, Author newAuthor) {
         ValidAuthor validation = new ValidAuthor();
-        Author valided = validation.ValidAuthor(new_Author.getCpf(), new_Author.getName(), new_Author.getHometown());
-        Author update = (Author) repositorio.find(cpf);
-        
-        if (update != null && valided != null){
-                    
-            List<Author> list_author = repositorio.findAll();
-            int index = list_author.indexOf(update);
-            
-            list_author.set(index, valided);
-            
-            //IDao
-            //Serializador JSON
-            
-        }else{
-            System.out.println("Error Update Author!");
+        Author validatedAuthor = validation.ValidAuthor(newAuthor.getCpf(), newAuthor.getName(), newAuthor.getHometown());
+
+        if (validatedAuthor != null) {
+            Author oldAuthor = (Author) repository.find(cpf);
+
+            if (oldAuthor != null) {
+                repository.update(cpf, validatedAuthor);
+
+                System.out.println("Author updated with success.");
+            } else {
+                System.out.println("Author not found for update.");
+            }
+        } else {
+            System.out.println("Invalid data for update.");
         }
     }
-    
-    public List<Author> List_Author(){
-        return repositorio.findAll();
+
+    // Método para listar todos os autores
+    public List<Author> listAuthors() {
+        return repository.findAll();
     }
 }
