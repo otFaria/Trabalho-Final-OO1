@@ -44,10 +44,7 @@ public class BookController {
 
         if (foundBook != null) {
             repository.delete(id);
-            
-            //IDao
-            //Serializador JSON
-            
+                       
             System.out.println("Book Removed with sucess.");
         } else {
             System.out.println("Livro não encontrado!");
@@ -66,9 +63,6 @@ public class BookController {
                 
                 repository.update(id, newBook);
 
-                //IDao
-                //Serializador JSON
-                
                 System.out.println("Book update with sucess.");
             } else {
                 System.out.println("Book not fouded for update.");

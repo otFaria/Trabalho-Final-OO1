@@ -1,6 +1,5 @@
 package Model.Dao;
 
-import Model.dao.IDao;
 import Model.entitites.Author;
 import Model.entitites.Book;
 
@@ -24,7 +23,7 @@ public class IDaoBookDatabase implements IDao<Book> {
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, book.getId());
             stmt.setString(2, book.getName());
-            stmt.setString(3, book.getAuthor().getCpf());
+            stmt.setString(3, book.getAuthorId());
             stmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Erro ao salvar livro: " + e.getMessage());
@@ -33,11 +32,11 @@ public class IDaoBookDatabase implements IDao<Book> {
 
     @Override
     public void update(String id, Book newBook) {
-        String sql = "UPDATE book SET id = ?, name = ?, author_name = ? WHERE id = ?";
+        String sql = "UPDATE book SET id = ?, name = ?, author_id = ? WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, newBook.getId());
             stmt.setString(2, newBook.getName());
-            stmt.setString(3, newBook.getAuthor().getName());
+            stmt.setString(3, newBook.getAuthorId());
             stmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Erro ao atualizar livro: " + e.getMessage());
@@ -62,12 +61,10 @@ public class IDaoBookDatabase implements IDao<Book> {
             stmt.setString(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    String author_name =
-
                     return new Book(
                             rs.getString("id"),
                             rs.getString("name"),
-                            rs.getString("author_name")
+                            rs.getString("author_id")
                     );
                 }
             }
@@ -79,21 +76,21 @@ public class IDaoBookDatabase implements IDao<Book> {
 
     @Override
     public List<Book> findAll() {
-        String sql = "SELECT * FROM author";
-        List<Book> listAuthors = new ArrayList<>();
+        String sql = "SELECT * FROM book";
+        List<Book> listBooks= new ArrayList<>();
         try (PreparedStatement stmt = connection.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
-                listAuthors.add(new Book(
+                listBooks.add(new Book(
                         rs.getString("id"),
                         rs.getString("name"),
-                        rs.getString("author_name")
+                        rs.getString("author_id")
                 ));
             }
         } catch (SQLException e) {
             System.out.println("Erro ao listar autor: " + e.getMessage());
         }
-        return listAuthors;
+        return listBooks;
     }
 }
