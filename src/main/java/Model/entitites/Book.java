@@ -10,7 +10,7 @@ public class Book {
     public Book() {
         this.id = "";
         this.name = "";
-        author_id = new String();
+        this.author_id = new String();
     }
     
     public Book(String id, String name, String author_id) {

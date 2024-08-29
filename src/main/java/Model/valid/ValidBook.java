@@ -1,11 +1,10 @@
 package Model.valid;
 
 import Model.entitites.Book;
-import Model.entitites.Author;
 
 public class ValidBook {
 
-    public Book validateBook(String id, String name, Author author) {
+    public Book validateBook(String id, String name, String author_id) {
         
         Book book = new Book();
 
@@ -26,11 +25,12 @@ public class ValidBook {
         book.setName(name);
 
         // Verificar se o autor do livro não é nulo
-        if (author == null) {
+        if (author_id.isEmpty()) {
             // Tratar exceção: Autor não pode ser nulo
-            System.out.println("Autor do livro não pode ser nulo.");
+            System.out.println("ID Autor nulo");
             return null;
         }
+        
         book.setAuthorID(id);
 
         return book;
