@@ -5,16 +5,16 @@ import Model.exceptions.BookException;
 
 public class ValidBook {
 
-    public Book validateBook(String id, String name, String author_id) {
+    public Book validateBook(String cod_book, String name, String author_id) {
         
         Book book = new Book();
 
         // Verificar se o ID do livro não está vazio
-        if (id.isEmpty()) {
+        if (cod_book.isEmpty()) {
             throw new BookException("Error - Field empty");
         }
         
-        book.setId(id);
+        book.setCod_book(cod_book);
 
         // Verificar se o nome do livro não está vazio
         if (name.isEmpty()) {
@@ -27,7 +27,7 @@ public class ValidBook {
            throw new BookException("Error - Field empty");
         }
         
-        book.setAuthorID(id);
+        book.setAuthorID(author_id);
 
         return book;
     }

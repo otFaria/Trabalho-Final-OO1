@@ -2,6 +2,7 @@ package Controller;
 
 import Model.Dao.IDao;
 import Model.entitites.Author;
+import Model.exceptions.AuthorException;
 import Model.valid.ValidAuthor;
 import java.util.List;
 
@@ -28,10 +29,10 @@ public class AuthorController {
 
                 System.out.println("Author added with success.");
             } else {
-                System.out.println("An author with this CPF already exists.");
+                throw new AuthorException("An author with this CPF already exists.");
             }
         } else {
-            System.out.println("Invalid data for the author.");
+            throw new AuthorException("Invalid data - Your author returned is null");
         }
     }
 
@@ -44,7 +45,7 @@ public class AuthorController {
 
             System.out.println("Author removed with success.");
         } else {
-            System.out.println("Author not found!");
+            throw new AuthorException("Author not found on database!");
         }
     }
 
@@ -61,10 +62,10 @@ public class AuthorController {
 
                 System.out.println("Author updated with success.");
             } else {
-                System.out.println("Author not found for update.");
+                throw new AuthorException("Error - your author returned is null!");
             }
         } else {
-            System.out.println("Invalid data for update.");
+            System.out.println("Your validate author occoured an error");
         }
     }
 
