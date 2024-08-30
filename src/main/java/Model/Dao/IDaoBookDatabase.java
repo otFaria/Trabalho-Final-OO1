@@ -19,9 +19,9 @@ public class IDaoBookDatabase implements IDao<Book> {
 
     @Override
     public void save(Book book) {
-        String sql = "INSERT INTO book (id, name, author_id) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO book (cod_book, name, author_id) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, book.getId());
+            stmt.setString(1, book.getCod_book());
             stmt.setString(2, book.getName());
             stmt.setString(3, book.getAuthorId());
             stmt.executeUpdate();
@@ -32,9 +32,9 @@ public class IDaoBookDatabase implements IDao<Book> {
 
     @Override
     public void update(String id, Book newBook) {
-        String sql = "UPDATE book SET id = ?, name = ?, author_id = ? WHERE id = ?";
+        String sql = "UPDATE book SET cod_book = ?, name = ?, author_id = ? WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, newBook.getId());
+            stmt.setString(1, newBook.getCod_book());
             stmt.setString(2, newBook.getName());
             stmt.setString(3, newBook.getAuthorId());
             stmt.executeUpdate();
@@ -44,10 +44,10 @@ public class IDaoBookDatabase implements IDao<Book> {
     }
 
     @Override
-    public void delete(String id) {
-        String sql = "DELETE FROM book WHERE id = ?";
+    public void delete(String cod_book) {
+        String sql = "DELETE FROM book WHERE cod_book = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, id);
+            stmt.setString(1, cod_book);
             stmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Erro ao deletar livro: " + e.getMessage());
@@ -55,14 +55,14 @@ public class IDaoBookDatabase implements IDao<Book> {
     }
 
     @Override
-    public Book find(String id) {
-        String sql = "SELECT * FROM book WHERE id = ?";
+    public Book find(String cod_book) {
+        String sql = "SELECT * FROM book WHERE cood_book = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, id);
+            stmt.setString(1, cod_book);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     return new Book(
-                            rs.getString("id"),
+                            rs.getString("cod_book"),
                             rs.getString("name"),
                             rs.getString("author_id")
                     );
@@ -83,7 +83,7 @@ public class IDaoBookDatabase implements IDao<Book> {
 
             while (rs.next()) {
                 listBooks.add(new Book(
-                        rs.getString("id"),
+                        rs.getString("cod_book"),
                         rs.getString("name"),
                         rs.getString("author_id")
                 ));

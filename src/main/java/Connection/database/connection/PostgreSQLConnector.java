@@ -19,7 +19,7 @@ public class PostgreSQLConnector {
 
     public void createTableBook() {
         String sql = "CREATE TABLE IF NOT EXISTS book("
-                + "id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,"
+                + "cod_book INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,"
                 + "name VARCHAR(200) NOT NULL,"
                 + "author_id INT REFERENCES author(id) ON DELETE CASCADE" +
                 ");";
@@ -34,7 +34,7 @@ public class PostgreSQLConnector {
 
     public void createTableAuthor() {
         String sql = "CREATE TABLE IF NOT EXISTS author("
-                + "id INR GENERATED ALWAYS AS IDENTITY PRIMARY KEY,"
+                + "cod_book INR GENERATED ALWAYS AS IDENTITY PRIMARY KEY,"
                 + "name VARCHAR(200) NOT NULL,"
                 + "cpf VARCHAR(15) NOT NULL,"
                 + "hometown VARCHAR(200) NOT NULL" +

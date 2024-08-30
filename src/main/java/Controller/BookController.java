@@ -3,6 +3,7 @@ package Controller;
 import Model.Dao.IDao;
 import Model.entitites.Book;
 import Model.entitites.Author;
+import Model.exceptions.BookException;
 import Model.valid.ValidBook;
 import java.util.List;
 
@@ -31,10 +32,10 @@ public class BookController {
                 
                 System.out.println("Book add with sucess.");
             } else {
-                System.out.println("A book with this ID already exists.");
+                throw new BookException("A book with this ID already exists.");
             }
         } else {
-            System.out.println("Invalid data for the book54.");
+            throw new BookException("Invalid data for the book");
         }
     }
 
@@ -47,28 +48,28 @@ public class BookController {
                        
             System.out.println("Book Removed with sucess.");
         } else {
-            System.out.println("Livro não encontrado!");
+            throw new BookException("Book not found!");
         }
     }
 
     // Método para atualizar um livro pelo ID
-    public void updateBook(String id, Book newBook) {
+    public void updateBook(String cod_book, Book newBook) {
         ValidBook validation = new ValidBook();
-        Book validatedBook = validation.validateBook(newBook.getId(), newBook.getName(), newBook.getAuthorId());
+        Book validatedBook = validation.validateBook(newBook.getCod_book(), newBook.getName(), newBook.getAuthorId());
 
         if (validatedBook != null) {
-            Book oldBook = (Book) repository.find(id);
+            Book oldBook = (Book) repository.find(cod_book);
 
             if (oldBook != null) {
                 
-                repository.update(id, newBook);
+                repository.update(cod_book, newBook);
 
                 System.out.println("Book update with sucess.");
             } else {
-                System.out.println("Book not fouded for update.");
+                throw new BookException("Book not found for update");
             }
         } else {
-            System.out.println("Data invalid for update");
+            throw new BookException("Data invalid for update");
         }
     }
 

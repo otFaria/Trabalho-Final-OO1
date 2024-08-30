@@ -3,30 +3,30 @@ package Model.entitites;
 import java.util.Objects;
 
 public class Book {
-    private String id;
+    private String cod_book;
     private String name;
     private String author_id;
 
     public Book() {
-        this.id = "";
+        this.cod_book = "";
         this.name = "";
         this.author_id = new String();
     }
     
-    public Book(String id, String name, String author_id) {
-        this.id = id;
+    public Book(String cod_book, String name, String author_id) {
+        this.cod_book = cod_book;
         this.name = name;
         this.author_id = author_id;
     }
 
     // Getters and Setters
-    
-    public String getId() {
-        return id;
+
+    public String getCod_book() {
+        return cod_book;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setCod_book(String cod_book) {
+        this.cod_book = cod_book;
     }
 
     public String getName() {
@@ -49,7 +49,7 @@ public class Book {
     @Override
     public String toString() {
         return "Book{" +
-                "id='" + id + '\'' +
+                "id='" + cod_book + '\'' +
                 ", name='" + name + '\'' +
                 ", author_id=" + author_id +
                 '}';
@@ -58,7 +58,7 @@ public class Book {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 13 * hash + Objects.hashCode(this.id);
+        hash = 13 * hash + Objects.hashCode(this.cod_book);
         return hash;
     }
 
@@ -74,7 +74,7 @@ public class Book {
             return false;
         }
         final Book other = (Book) obj;
-        if (!Objects.equals(this.id, other.id)) {
+        if (!Objects.equals(this.cod_book, other.cod_book)) {
             return false;
         }
         if (!Objects.equals(this.name, other.name)) {
