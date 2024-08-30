@@ -2,11 +2,7 @@ package Controller;
 
 import Model.Dao.IDao;
 import Model.entitites.Book;
-<<<<<<< HEAD
-=======
-import Model.entitites.Author;
 import Model.exceptions.BookException;
->>>>>>> 6d7d4fcc77d83aa607b803eef15ebb5c65136c4c
 import Model.valid.ValidBook;
 import java.util.List;
 
