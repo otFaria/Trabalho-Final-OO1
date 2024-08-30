@@ -4,6 +4,8 @@
 
 package com.mycompany.bibliotecamvc;
 
+import View.ScreenINIT.JFTelaInicial;
+
 /**
  *
  * @author Otavio
@@ -11,6 +13,7 @@ package com.mycompany.bibliotecamvc;
 public class BibliotecaMVC {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        JFTelaInicial screen_init = new JFTelaInicial();
+        screen_init.setVisible(true);
     }
 }
