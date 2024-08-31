@@ -19,7 +19,7 @@ public class IDaoBookDatabase implements IDao<Book> {
 
     @Override
     public void save(Book book) {
-        String sql = "INSERT INTO book (cod_book, name, author_id) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO book (cod_book, name, author_id) VALUES (?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, book.getCod_book());
             stmt.setString(2, book.getName());
@@ -31,8 +31,8 @@ public class IDaoBookDatabase implements IDao<Book> {
     }
 
     @Override
-    public void update(String id, Book newBook) {
-        String sql = "UPDATE book SET cod_book = ?, name = ?, author_id = ? WHERE id = ?";
+    public void update(String cod_book, Book newBook) {
+        String sql = "UPDATE book SET cod_book = ?, name = ?, author_id = ? WHERE cod_book = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, newBook.getCod_book());
             stmt.setString(2, newBook.getName());
@@ -69,7 +69,7 @@ public class IDaoBookDatabase implements IDao<Book> {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Erro ao buscar autor: " + e.getMessage());
+            System.out.println("Erro ao buscar livro: " + e.getMessage());
         }
         return null;
     }
@@ -89,7 +89,7 @@ public class IDaoBookDatabase implements IDao<Book> {
                 ));
             }
         } catch (SQLException e) {
-            System.out.println("Erro ao listar autor: " + e.getMessage());
+            System.out.println("Erro ao listar livros: " + e.getMessage());
         }
         return listBooks;
     }

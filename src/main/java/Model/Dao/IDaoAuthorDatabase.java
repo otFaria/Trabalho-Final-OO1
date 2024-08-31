@@ -18,7 +18,7 @@ public class IDaoAuthorDatabase implements IDao<Author> {
 
     @Override
     public void save(Author author) {
-        String sql = "INSERT INTO author (cpf, name, hometown) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO author (cpf, name, hometown) VALUES (?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, author.getCpf());
             stmt.setString(2, author.getName());
