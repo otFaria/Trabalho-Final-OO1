@@ -5,64 +5,64 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class PostgreSQLConnector {
+public class SQLiteConnector {
 
     private Connection connection;
 
-    public PostgreSQLConnector(String dbName) throws SQLException {
-        String urlConnection = "jdbc:postgresql://localhost:8080/" + dbName;
+    public SQLiteConnector(String dbName) throws SQLException {
+        String urlConnection = "jdbc:sqlite:" + dbName;
         this.connection = DriverManager.getConnection(urlConnection);
 
         createTableBook();
         createTableAuthor();
         createTableLibrary();
     }
-    
+
     public Connection getConnection() {
         return connection;
     }
 
     public void createTableAuthor() {
         String sql = "CREATE TABLE IF NOT EXISTS author ("
-                + "id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,"
-                + "name VARCHAR(200) NOT NULL,"
-                + "cpf VARCHAR(15) NOT NULL,"
-                + "hometown VARCHAR(200) NOT NULL"
+                + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + "name TEXT NOT NULL,"
+                + "cpf TEXT NOT NULL,"
+                + "hometown TEXT NOT NULL"
                 + ");";
 
         try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
-            System.out.println("Error connection database: " + e.getMessage());
+            System.out.println("Error connecting to the database: " + e.getMessage());
         }
     }
 
     public void createTableBook() {
         String sql = "CREATE TABLE IF NOT EXISTS book ("
-                + "id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY"
-                + "cod_book INT NOT NULL,"
-                + "name VARCHAR(200) NOT NULL,"
-                + "author_id INT REFERENCES author(id) ON DELETE CASCADE"
+                + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + "cod_book INTEGER NOT NULL,"
+                + "name TEXT NOT NULL,"
+                + "author_id INTEGER REFERENCES author(id) ON DELETE CASCADE"
                 + ");";
 
         try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
-            System.out.println("Error connection database: " + e.getMessage());
+            System.out.println("Error connecting to the database: " + e.getMessage());
         }
     }
 
     public void createTableLibrary() {
         String sql = "CREATE TABLE IF NOT EXISTS library ("
-                + "id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,"
-                + "name VARCHAR(100) NOT NULL,"
-                + "cod_book INT REFERENCES book(cod_book) ON DELETE CASCADE"
+                + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + "name TEXT NOT NULL,"
+                + "cod_book INTEGER REFERENCES book(cod_book) ON DELETE CASCADE"
                 + ");";
 
         try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
-            System.out.println("Error connection database: " + e.getMessage());
+            System.out.println("Error connecting to the database: " + e.getMessage());
         }
     }
 }

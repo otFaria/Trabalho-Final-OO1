@@ -4,7 +4,7 @@
  */
 package View.JDialog.ScreenCRUDBook;
 
-import Connection.database.connection.PostgreSQLConnector;
+import Connection.database.connection.SQLiteConnector;
 import Controller.BookController;
 import Model.Dao.IDao;
 import Model.Dao.IDaoBookDatabase;
@@ -31,8 +31,8 @@ public class CrudBook extends javax.swing.JDialog {
     public CrudBook() throws SQLException {
         this.editing = false;
         
-        PostgreSQLConnector pg_connector = new PostgreSQLConnector("Biblioteca.postgre");
-        IDao bookDao = new IDaoBookDatabase(pg_connector.getConnection());
+        SQLiteConnector sql_connector = new SQLiteConnector("Biblioteca.postgre");
+        IDao bookDao = new IDaoBookDatabase(sql_connector.getConnection());
         
         this.bookController = new BookController(bookDao);
     }

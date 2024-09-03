@@ -4,7 +4,7 @@
  */
 package View.JDialog.ScreenCRUDAuthor;
 
-import Connection.database.connection.PostgreSQLConnector;
+import Connection.database.connection.SQLiteConnector;
 import Controller.AuthorController;
 import Controller.BookController;
 import Model.Dao.IDao;
@@ -38,7 +38,7 @@ public class CrudAuthor extends javax.swing.JDialog {
     public CrudAuthor() throws SQLException {
         this.editing = false;
         
-        PostgreSQLConnector pg_connector = new PostgreSQLConnector("Biblioteca.postgre");
+        SQLiteConnector pg_connector = new SQLiteConnector("Biblioteca.postgre");
         IDao authorDao = new IDaoAuthorDatabase(pg_connector.getConnection());
         
         this.author_controller = new AuthorController(authorDao);
@@ -235,10 +235,9 @@ public class CrudAuthor extends javax.swing.JDialog {
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         this.editing = true;
-        Author find_author = new Author();
         
         String Cpf_informed = JOptionPane.showInputDialog("Me informe o CPF do Autor para ser editado: ");
-        AuthorController.find(Cpf_informed);
+        author_controller.listAuthors();
         
         
         
