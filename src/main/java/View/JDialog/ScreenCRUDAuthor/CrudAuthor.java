@@ -4,6 +4,11 @@
  */
 package View.JDialog.ScreenCRUDAuthor;
 
+import Controller.AuthorController;
+import Model.entitites.Author;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Otavio
@@ -12,6 +17,7 @@ public class CrudAuthor extends javax.swing.JDialog {
 
     
     private Boolean editing = false;
+    private AuthorController author_controller = new AuthorController(repository)
     
     /**
      * Creates new form CrudBook
@@ -207,11 +213,18 @@ public class CrudAuthor extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnDelActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        // TODO add your handling code here:
+        this.editing = true;
+        Author find_author = new Author();
+        
+        String Cpf_informed = JOptionPane.showInputDialog("Me informe o CPF do Autor para ser editado: ");
+        AuthorController.find(Cpf_informed);
+        
+        
+        
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
@@ -228,7 +241,7 @@ public class CrudAuthor extends javax.swing.JDialog {
         
     }//GEN-LAST:event_btnCancelActionPerformed
 
-    
+
     public void ClearFilds(){
         txtCPF.setText("");
         txtHometown.setText("");

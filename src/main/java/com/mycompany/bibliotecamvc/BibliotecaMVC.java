@@ -5,6 +5,7 @@
 package com.mycompany.bibliotecamvc;
 
 import View.ScreenINIT.JFTelaInicial;
+import java.sql.SQLException;
 
 /**
  *
@@ -12,8 +13,8 @@ import View.ScreenINIT.JFTelaInicial;
  */
 public class BibliotecaMVC {
 
-    public static void main(String[] args) {
-        JFTelaInicial screen_init = new JFTelaInicial();
+    public static void main(String[] args) throws SQLException {
+        JFTelaInicial screen_init = new JFTelaInicial("Cz");
         screen_init.setVisible(true);
     }
 }

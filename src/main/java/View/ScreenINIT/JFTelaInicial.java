@@ -4,9 +4,14 @@
  */
 package View.ScreenINIT;
 
+import Connection.database.connection.PostgreSQLConnector;
+import Model.Dao.IDao;
+import Model.Dao.IDaoAuthorDatabase;
 import View.JDialog.ScreenCRUDAuthor.CrudAuthor;
 import java.awt.Color;
 import static java.awt.Color.blue;
+import java.sql.Connection;
+import java.sql.SQLException;
 import javax.swing.JDialog;
 
 /**
@@ -15,8 +20,13 @@ import javax.swing.JDialog;
  */
 public class JFTelaInicial extends javax.swing.JFrame {
 
-    public JFTelaInicial() {
+    private IDao dao_author;
+    private PostgreSQLConnector connection;
+    
+    public JFTelaInicial(String dbName) throws SQLException {
         initComponents();
+        this.connection = new PostgreSQLConnector(dbName);
+        this.dao_author = new IDaoAuthorDatabase((Connection) connection);
     }
 
     /**
