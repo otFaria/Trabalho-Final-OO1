@@ -4,8 +4,15 @@
  */
 package View.JDialog.ScreenCRUDAuthor;
 
+import Connection.database.connection.PostgreSQLConnector;
 import Controller.AuthorController;
+import Controller.BookController;
+import Model.Dao.IDao;
+import Model.Dao.IDaoAuthorDatabase;
+import Model.Dao.IDaoBookDatabase;
 import Model.entitites.Author;
+import Model.entitites.Book;
+import java.sql.SQLException;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
@@ -14,10 +21,9 @@ import javax.swing.JOptionPane;
  * @author Otavio
  */
 public class CrudAuthor extends javax.swing.JDialog {
-
     
-    private Boolean editing = false;
-    private AuthorController author_controller = new AuthorController(repository)
+    private Boolean editing;
+    private AuthorController author_controller;
     
     /**
      * Creates new form CrudBook
@@ -28,6 +34,17 @@ public class CrudAuthor extends javax.swing.JDialog {
         this.ClearFilds();
         this.EnableFilds(false);
     }
+
+    public CrudAuthor() throws SQLException {
+        this.editing = false;
+        
+        PostgreSQLConnector pg_connector = new PostgreSQLConnector("Biblioteca.postgre");
+        IDao authorDao = new IDaoAuthorDatabase(pg_connector.getConnection());
+        
+        this.author_controller = new AuthorController(authorDao);
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.

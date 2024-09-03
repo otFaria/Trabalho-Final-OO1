@@ -17,8 +17,12 @@ public class PostgreSQLConnector {
         createTableAuthor();
         createTableLibrary();
     }
+    
+    public Connection getConnection() {
+        return connection;
+    }
 
-        public void createTableAuthor() {
+    public void createTableAuthor() {
         String sql = "CREATE TABLE IF NOT EXISTS author ("
                 + "id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,"
                 + "name VARCHAR(200) NOT NULL,"

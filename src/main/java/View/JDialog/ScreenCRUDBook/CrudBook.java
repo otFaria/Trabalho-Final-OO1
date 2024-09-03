@@ -4,14 +4,22 @@
  */
 package View.JDialog.ScreenCRUDBook;
 
+import Connection.database.connection.PostgreSQLConnector;
+import Controller.BookController;
+import Model.Dao.IDao;
+import Model.Dao.IDaoBookDatabase;
 import View.JDialog.ScreenCRUDAuthor.CrudAuthor;
+import java.sql.SQLException;
 
 /**
  *
  * @author Otavio
  */
 public class CrudBook extends javax.swing.JDialog {
-
+    
+    private boolean editing;
+    private BookController bookController;
+    
     /**
      * Creates new form CrudAuthor
      */
@@ -19,6 +27,17 @@ public class CrudBook extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
     }
+
+    public CrudBook() throws SQLException {
+        this.editing = false;
+        
+        PostgreSQLConnector pg_connector = new PostgreSQLConnector("Biblioteca.postgre");
+        IDao bookDao = new IDaoBookDatabase(pg_connector.getConnection());
+        
+        this.bookController = new BookController(bookDao);
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -172,13 +191,13 @@ public class CrudBook extends javax.swing.JDialog {
                 .addGap(32, 32, 32)
                 .addComponent(lbnCRUDBook, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnNew, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnDel, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
                         .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)))
+                        .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE))
+                    .addComponent(btnNew, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
