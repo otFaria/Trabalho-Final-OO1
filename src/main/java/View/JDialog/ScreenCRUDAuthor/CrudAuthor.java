@@ -10,12 +10,17 @@ package View.JDialog.ScreenCRUDAuthor;
  */
 public class CrudAuthor extends javax.swing.JDialog {
 
+    
+    private Boolean editing = false;
+    
     /**
      * Creates new form CrudBook
      */
     public CrudAuthor(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.ClearFilds();
+        this.EnableFilds(false);
     }
 
     /**
@@ -64,12 +69,6 @@ public class CrudAuthor extends javax.swing.JDialog {
         lblHometown.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblHometown.setText("Cidade natal:");
 
-        txtName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNameActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -114,6 +113,11 @@ public class CrudAuthor extends javax.swing.JDialog {
 
         btnNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/novo_32x32.png"))); // NOI18N
         btnNew.setText("Novo");
+        btnNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNewActionPerformed(evt);
+            }
+        });
 
         btnDel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/del_32x32.png"))); // NOI18N
         btnDel.setText("Excluir");
@@ -125,6 +129,11 @@ public class CrudAuthor extends javax.swing.JDialog {
 
         btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/cancel_32x32.png"))); // NOI18N
         btnCancel.setText("Cancelar");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
         btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/edit3_32x32.png"))); // NOI18N
         btnEdit.setText("Editar");
@@ -205,53 +214,39 @@ public class CrudAuthor extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnEditActionPerformed
 
-    private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNameActionPerformed
+    private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
+        
+        this.editing = false;
+        
+        this.ClearFilds();
+        this.EnableFilds(true);
+    }//GEN-LAST:event_btnNewActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CrudAuthor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CrudAuthor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CrudAuthor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CrudAuthor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        this.ClearFilds();
+        this.EnableFilds(false);
+        
+    }//GEN-LAST:event_btnCancelActionPerformed
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                CrudAuthor dialog = new CrudAuthor(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
+    
+    public void ClearFilds(){
+        txtCPF.setText("");
+        txtHometown.setText("");
+        txtName.setText("");
     }
-
+    
+    public void EnableFilds(Boolean flag){
+        txtCPF.setEnabled(flag);
+        txtName.setEnabled(flag);
+        txtHometown.setEnabled(flag);
+    }
+    
+    public void EnableFildsForEdit(){
+        txtCPF.setEnabled(false);
+        txtName.setEnabled(true);
+        txtHometown.setEnabled(true);
+    }
+ 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnDel;

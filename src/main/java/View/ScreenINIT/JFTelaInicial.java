@@ -7,6 +7,7 @@ package View.ScreenINIT;
 import View.JDialog.ScreenCRUDAuthor.CrudAuthor;
 import java.awt.Color;
 import static java.awt.Color.blue;
+import javax.swing.JDialog;
 
 /**
  *
@@ -113,7 +114,8 @@ public class JFTelaInicial extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAuthorActionPerformed
-        
+        JDialog screenCrudAuthor = new CrudAuthor(this, true);
+        screenCrudAuthor.setVisible(true);
     }//GEN-LAST:event_btnAuthorActionPerformed
 
     private void btnBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookActionPerformed
