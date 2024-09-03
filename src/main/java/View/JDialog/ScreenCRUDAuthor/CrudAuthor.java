@@ -6,14 +6,10 @@ package View.JDialog.ScreenCRUDAuthor;
 
 import Connection.database.connection.PostgreSQLConnector;
 import Controller.AuthorController;
-import Controller.BookController;
 import Model.Dao.IDao;
 import Model.Dao.IDaoAuthorDatabase;
-import Model.Dao.IDaoBookDatabase;
 import Model.entitites.Author;
-import Model.entitites.Book;
 import java.sql.SQLException;
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 /**
@@ -234,13 +230,19 @@ public class CrudAuthor extends javax.swing.JDialog {
     }//GEN-LAST:event_btnDelActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        
         this.editing = true;
         Author find_author = new Author();
         
-        String Cpf_informed = JOptionPane.showInputDialog("Me informe o CPF do Autor para ser editado: ");
-        AuthorController.find(Cpf_informed);
+        String Cpf_informed = JOptionPane.showInputDialog("Me informe o CPF do Autor para ser editado !");
+        find_author = author_controller.findAuthor(Cpf_informed);
         
-        
+        if (find_author != null) {
+            this.EnableFildsForEdit();
+            this.FillFilds(find_author);
+        }else{
+            JOptionPane.showMessageDialog(this, "Autor não encontrado !");
+        }
         
     }//GEN-LAST:event_btnEditActionPerformed
 
@@ -275,6 +277,12 @@ public class CrudAuthor extends javax.swing.JDialog {
         txtCPF.setEnabled(false);
         txtName.setEnabled(true);
         txtHometown.setEnabled(true);
+    }
+    
+    public void FillFilds(Author A1){
+        txtCPF.setText(A1.getCpf());
+        txtName.setText(A1.getName());
+        txtHometown.setText(A1.getHometown());
     }
  
     // Variables declaration - do not modify//GEN-BEGIN:variables

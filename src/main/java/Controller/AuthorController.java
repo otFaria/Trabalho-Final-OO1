@@ -50,7 +50,7 @@ public class AuthorController {
     }
 
     // Método para atualizar um autor pelo CPF
-    public void updateAuthor(String cpf, Author newAuthor) {
+    public void updateAuthor(String cpf, Author newAuthor){
         ValidAuthor validation = new ValidAuthor();
         Author validatedAuthor = validation.ValidAuthor(newAuthor.getCpf(), newAuthor.getName(), newAuthor.getHometown());
 
@@ -67,6 +67,20 @@ public class AuthorController {
         } else {
             System.out.println("Your validate author occoured an error");
         }
+    }
+    
+    //Método para buscar um autor.
+    
+    public Author findAuthor(String cpf){
+        
+        List <Author> listAuthor = listAuthors();
+        
+        for (Author author : listAuthor) {
+            if(author.getCpf().equalsIgnoreCase(cpf)){
+                return author;
+            }
+        }
+        return null;
     }
 
     // Método para listar todos os autores
