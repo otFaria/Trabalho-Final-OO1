@@ -25,7 +25,7 @@ public class JFTelaInicial extends javax.swing.JFrame {
     
     public JFTelaInicial(String dbName) throws SQLException {
         initComponents();
-        this.connection = new SQLiteConnector(dbName);
+        this.connection = new SQLiteConnector("Biblioteca.sqlite");
         this.dao_author = new IDaoAuthorDatabase((Connection) connection);
     }
 
