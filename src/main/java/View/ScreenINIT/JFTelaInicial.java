@@ -4,7 +4,7 @@
  */
 package View.ScreenINIT;
 
-import Connection.database.connection.PostgreSQLConnector;
+import Connection.database.connection.SQLiteConnector;
 import Model.Dao.IDao;
 import Model.Dao.IDaoAuthorDatabase;
 import View.JDialog.ScreenCRUDAuthor.CrudAuthor;
@@ -21,11 +21,11 @@ import javax.swing.JDialog;
 public class JFTelaInicial extends javax.swing.JFrame {
 
     private IDao dao_author;
-    private PostgreSQLConnector connection;
+    private SQLiteConnector connection;
     
     public JFTelaInicial(String dbName) throws SQLException {
         initComponents();
-        this.connection = new PostgreSQLConnector(dbName);
+        this.connection = new SQLiteConnector(dbName);
         this.dao_author = new IDaoAuthorDatabase((Connection) connection);
     }
 
