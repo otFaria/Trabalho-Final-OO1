@@ -35,7 +35,7 @@ public class CrudBook extends javax.swing.JDialog {
         
         this.editing = false;
         
-        SQLiteConnector sql_connector = new SQLiteConnector("Biblioteca.sqlite");
+        SQLiteConnector sql_connector = new SQLiteConnector("Biblioteca.db");
         IDao bookDao = new IDaoBookDatabase(sql_connector.getConnection());
         
         this.bookController = new BookController(bookDao);

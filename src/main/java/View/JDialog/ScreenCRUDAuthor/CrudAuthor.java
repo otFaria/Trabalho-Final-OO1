@@ -36,7 +36,7 @@ public class CrudAuthor extends javax.swing.JDialog {
         
         this.editing = false;
         
-        SQLiteConnector pg_connector = new SQLiteConnector("Biblioteca.sqlite");
+        SQLiteConnector pg_connector = new SQLiteConnector("Biblioteca.db");
         IDao authorDao = new IDaoAuthorDatabase(pg_connector.getConnection());
         
         this.author_controller = new AuthorController(authorDao);
