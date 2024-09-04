@@ -31,7 +31,7 @@ public class CrudBook extends javax.swing.JDialog {
     public CrudBook() throws SQLException {
         this.editing = false;
         
-        SQLiteConnector sql_connector = new SQLiteConnector("Biblioteca.postgre");
+        SQLiteConnector sql_connector = new SQLiteConnector("Biblioteca.sqlite");
         IDao bookDao = new IDaoBookDatabase(sql_connector.getConnection());
         
         this.bookController = new BookController(bookDao);
