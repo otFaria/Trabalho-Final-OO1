@@ -160,6 +160,11 @@ public class CrudAuthor extends javax.swing.JDialog {
 
         btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/save_32x32.png"))); // NOI18N
         btnSave.setText("Salvar");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
 
         tblBook.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -222,12 +227,30 @@ public class CrudAuthor extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
+        this.editing = false;
+        Author find_author = new Author();
         
+        
+        String Cpf_informed = JOptionPane.showInputDialog("Me informe o CPF do Autor para ser deletado !");
+        find_author = author_controller.findAuthor(Cpf_informed);
+        
+        if (find_author != null) {
+            this.author_controller.removeAuthor(Cpf_informed);
+            this.ClearFilds();
+            this.EnableFilds(false);
+            JOptionPane.showMessageDialog(this, "Autor deletado com sucesso");
+            
+        }else{
+            JOptionPane.showMessageDialog(this, "Autor não encontrado !");
+            this.ClearFilds();
+            this.EnableFilds(false);
+        }
     }//GEN-LAST:event_btnDelActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         
         this.editing = true;
+        
         Author find_author = new Author();
        
         String Cpf_informed = JOptionPane.showInputDialog("Me informe o CPF do Autor para ser editado !");
@@ -239,8 +262,9 @@ public class CrudAuthor extends javax.swing.JDialog {
             this.FillFilds(find_author);
         }else{
             JOptionPane.showMessageDialog(this, "Autor não encontrado !");
+            this.ClearFilds();
+            this.EnableFilds(false);
         }
-        
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
@@ -256,6 +280,10 @@ public class CrudAuthor extends javax.swing.JDialog {
         this.EnableFilds(false);
         
     }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSaveActionPerformed
 
 
     public void ClearFilds(){
