@@ -291,11 +291,12 @@ public class CrudAuthor extends javax.swing.JDialog {
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         Author newAuthor = new Author(txtCPF.getText(), txtName.getText(), txtHometown.getText());
         
-        if(this.editing) 
+        if(this.editing)
             this.author_controller.updateAuthor(txtCPF.getText(), newAuthor);
         else 
             this.author_controller.addAuthor(txtCPF.getText(), txtName.getText(), txtHometown.getText());
         
+        this.Update_Table();
         this.editing = false;
         this.ClearFilds();
         this.EnableFilds(false);

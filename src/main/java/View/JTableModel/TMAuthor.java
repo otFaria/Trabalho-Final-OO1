@@ -16,8 +16,8 @@ public class TMAuthor extends AbstractTableModel {
     
     private List listAuthors;
     
-    private final int COL_NAME = 0;
-    private final int COL_CPF = 1;
+    private final int COL_CPF = 0;
+    private final int COL_NAME = 1;
     private final int COL_HOMETOWN = 2;
 
     public TMAuthor(List listAuthors) {
