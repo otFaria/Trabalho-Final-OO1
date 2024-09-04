@@ -8,7 +8,9 @@ import Connection.database.connection.SQLiteConnector;
 import Controller.BookController;
 import Model.Dao.IDao;
 import Model.Dao.IDaoBookDatabase;
+import Model.entitites.Author;
 import Model.entitites.Book;
+import Model.valid.ValidAuthor;
 import Model.valid.ValidBook;
 import View.JTableModel.TMBook;
 import java.sql.SQLException;
@@ -240,6 +242,7 @@ public class CrudBook extends javax.swing.JDialog {
         
         if (fouded != null) {
             bookController.removeBook(Cod_Book_Find);
+            this.Update_Table();
         }else{
             JOptionPane.showMessageDialog(this, "Livro não encontrado !");
         }
@@ -279,17 +282,21 @@ public class CrudBook extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        
         ValidBook valid_book = new ValidBook();
+        Book newAuthor = valid_book.validateBook(txtBookCod.getText(), txtName.getText(), txtAuthor.getText());
         
-        Book newBook = valid_book.validateBook(txtBookCod.getText(), txtName.getText(), txtAuthor.getText());
-        
-        if (editing) {
-            this.bookController.updateBook(txtBookCod.getText(), newBook);
-            JOptionPane.showMessageDialog(this, "Livro atualizado com sucesso!");
-        }else{
-            
+        if(this.editing)
+            this.bookController.updateBook(txtBookCod.getText(), newAuthor);
+        else{ 
+            if (bookController.Find_Book(newAuthor.getCod_book()) != null) 
+                JOptionPane.showMessageDialog(this, "O Autor já esta cadastrado !");
+            else
+                this.bookController.addBook(txtBookCod.getText(), txtName.getText(), txtAuthor.getText());
         }
+        this.Update_Table();
+        this.editing = false;
+        this.ClearFilds();
+        this.EnableFilds(false);
     }//GEN-LAST:event_btnSaveActionPerformed
 
     

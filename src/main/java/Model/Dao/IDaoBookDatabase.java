@@ -56,7 +56,7 @@ public class IDaoBookDatabase implements IDao<Book> {
 
     @Override
     public Book find(String cod_book) {
-        String sql = "SELECT * FROM book WHERE cood_book = ?";
+        String sql = "SELECT * FROM book WHERE cod_book = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, cod_book);
             try (ResultSet rs = stmt.executeQuery()) {

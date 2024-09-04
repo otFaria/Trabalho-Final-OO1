@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author jc
  */
-public class ISerializerJSONBook {
+public class ISerializerJSONBook{
  
     public String toFile(List<Book> books) {
         try {

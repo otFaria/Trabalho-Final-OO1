@@ -7,6 +7,7 @@ package View.ScreenINIT;
 import Connection.database.connection.SQLiteConnector;
 import Model.Dao.IDao;
 import Model.Dao.IDaoAuthorDatabase;
+import Model.file.SerializerAuthor.ISerializerJSONAuthor;
 import View.JDialog.ScreenCRUDAuthor.CrudAuthor;
 import View.JDialog.ScreenCRUDBook.CrudBook;
 import View.JTableModel.TMAuthor;
@@ -32,6 +33,8 @@ public class JFTelaInicial extends javax.swing.JFrame {
     public JFTelaInicial() throws SQLException {
         initComponents();
         this.connection = new SQLiteConnector("Biblioteca.sqlite");
+        
+        //Data Base
         this.dao_author = new IDaoAuthorDatabase(connection.getConnection());
     }
 
