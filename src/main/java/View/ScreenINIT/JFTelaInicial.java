@@ -22,15 +22,10 @@ public class JFTelaInicial extends javax.swing.JFrame {
     private IDao dao_author;
     private SQLiteConnector connection;
     
-    public JFTelaInicial(String dbName) throws SQLException {
+    public JFTelaInicial() throws SQLException {
         initComponents();
-<<<<<<< HEAD
-        this.connection = new SQLiteConnector(dbName);
-        this.dao_author = new IDaoAuthorDatabase(connection.getConnection());
-=======
         this.connection = new SQLiteConnector("Biblioteca.sqlite");
-        this.dao_author = new IDaoAuthorDatabase((Connection) connection);
->>>>>>> d0557e5a6e0eb0c06e4f68aca063915f200388a3
+        this.dao_author = new IDaoAuthorDatabase(connection.getConnection());
     }
 
     /**

@@ -14,7 +14,7 @@ import java.sql.SQLException;
 public class BibliotecaMVC {
 
     public static void main(String[] args) throws SQLException {
-        JFTelaInicial screen_init = new JFTelaInicial("Home");
+        JFTelaInicial screen_init = new JFTelaInicial();
         screen_init.setVisible(true);
     }
 }
