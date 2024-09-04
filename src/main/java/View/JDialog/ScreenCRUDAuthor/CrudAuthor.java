@@ -9,6 +9,7 @@ import Controller.AuthorController;
 import Model.Dao.IDao;
 import Model.Dao.IDaoAuthorDatabase;
 import Model.entitites.Author;
+import View.JTableModel.TMAuthor;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
@@ -20,11 +21,12 @@ public class CrudAuthor extends javax.swing.JDialog {
     
     private Boolean editing;
     private AuthorController author_controller;
+    private TMAuthor tm_author;
     
     /**
      * Creates new form CrudBook
      */
-    public CrudAuthor(java.awt.Frame parent, boolean modal) throws SQLException {
+    public CrudAuthor(java.awt.Frame parent, boolean modal, TMAuthor tm_author) throws SQLException {
         super(parent, modal);
         initComponents();
         this.ClearFilds();
@@ -36,6 +38,10 @@ public class CrudAuthor extends javax.swing.JDialog {
         IDao authorDao = new IDaoAuthorDatabase(pg_connector.getConnection());
         
         this.author_controller = new AuthorController(authorDao);
+        
+        this.tm_author = tm_author;
+        
+        this.Update_Table();
     }
 
     /**
@@ -49,7 +55,7 @@ public class CrudAuthor extends javax.swing.JDialog {
 
         jButton4 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        lbnCRUDBook = new javax.swing.JLabel();
+        lbnCRUDAuthor = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         lblCPF = new javax.swing.JLabel();
         lblNameAuthor = new javax.swing.JLabel();
@@ -63,7 +69,7 @@ public class CrudAuthor extends javax.swing.JDialog {
         btnEdit = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblBook = new javax.swing.JTable();
+        grdAuthor = new javax.swing.JTable();
 
         jButton4.setText("jButton1");
 
@@ -71,9 +77,9 @@ public class CrudAuthor extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        lbnCRUDBook.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        lbnCRUDBook.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbnCRUDBook.setText("Cadastro de Livro");
+        lbnCRUDAuthor.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        lbnCRUDAuthor.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbnCRUDAuthor.setText("Cadastro de Autor");
 
         lblCPF.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblCPF.setText("CPF:");
@@ -166,7 +172,7 @@ public class CrudAuthor extends javax.swing.JDialog {
             }
         });
 
-        tblBook.setModel(new javax.swing.table.DefaultTableModel(
+        grdAuthor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -177,13 +183,13 @@ public class CrudAuthor extends javax.swing.JDialog {
                 "CPF", "Nome", "Cidade Natal"
             }
         ));
-        jScrollPane1.setViewportView(tblBook);
+        jScrollPane1.setViewportView(grdAuthor);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lbnCRUDBook, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lbnCRUDAuthor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(130, 130, 130)
                 .addComponent(btnNew, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -206,7 +212,7 @@ public class CrudAuthor extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addComponent(lbnCRUDBook, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lbnCRUDAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -240,6 +246,7 @@ public class CrudAuthor extends javax.swing.JDialog {
             this.EnableFilds(false);
             JOptionPane.showMessageDialog(this, "Autor deletado com sucesso");
             
+            this.Update_Table();
         }else{
             JOptionPane.showMessageDialog(this, "Autor não encontrado !");
             this.ClearFilds();
@@ -309,6 +316,11 @@ public class CrudAuthor extends javax.swing.JDialog {
         txtName.setText(A1.getName());
         txtHometown.setText(A1.getHometown());
     }
+    
+    public void Update_Table(){
+        tm_author = new TMAuthor(author_controller.listAuthors());
+        grdAuthor.setModel(tm_author);
+    }
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
@@ -316,6 +328,7 @@ public class CrudAuthor extends javax.swing.JDialog {
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnNew;
     private javax.swing.JButton btnSave;
+    private javax.swing.JTable grdAuthor;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
     private javax.swing.JPanel jPanel1;
@@ -323,8 +336,7 @@ public class CrudAuthor extends javax.swing.JDialog {
     private javax.swing.JLabel lblCPF;
     private javax.swing.JLabel lblHometown;
     private javax.swing.JLabel lblNameAuthor;
-    private javax.swing.JLabel lbnCRUDBook;
-    private javax.swing.JTable tblBook;
+    private javax.swing.JLabel lbnCRUDAuthor;
     private javax.swing.JTextField txtCPF;
     private javax.swing.JTextField txtHometown;
     private javax.swing.JTextField txtName;
