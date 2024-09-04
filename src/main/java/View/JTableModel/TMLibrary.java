@@ -18,6 +18,10 @@ public class TMLibrary extends AbstractTableModel {
     
     private final int COL_NAME = 0;
     private final int COL_COD_BOOK = 1;
+
+    public TMLibrary(List listLibrary) {
+        this.listLibrary = listLibrary;
+    }
     
     @Override
     public int getRowCount() {
