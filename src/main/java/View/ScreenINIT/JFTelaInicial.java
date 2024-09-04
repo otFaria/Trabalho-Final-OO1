@@ -8,10 +8,9 @@ import Connection.database.connection.SQLiteConnector;
 import Model.Dao.IDao;
 import Model.Dao.IDaoAuthorDatabase;
 import View.JDialog.ScreenCRUDAuthor.CrudAuthor;
-import java.awt.Color;
-import static java.awt.Color.blue;
-import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JDialog;
 
 /**
@@ -26,7 +25,7 @@ public class JFTelaInicial extends javax.swing.JFrame {
     public JFTelaInicial(String dbName) throws SQLException {
         initComponents();
         this.connection = new SQLiteConnector(dbName);
-        this.dao_author = new IDaoAuthorDatabase((Connection) connection);
+        this.dao_author = new IDaoAuthorDatabase(connection.getConnection());
     }
 
     /**
@@ -124,12 +123,22 @@ public class JFTelaInicial extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAuthorActionPerformed
-        JDialog screenCrudAuthor = new CrudAuthor(this, true);
+        JDialog screenCrudAuthor = null;
+        try {
+            screenCrudAuthor = new CrudAuthor(this, true);
+        } catch (SQLException ex) {
+            Logger.getLogger(JFTelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+        }
         screenCrudAuthor.setVisible(true);
     }//GEN-LAST:event_btnAuthorActionPerformed
 
     private void btnBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookActionPerformed
-        CrudAuthor screenCrudBook = new CrudAuthor(this, true);
+        CrudAuthor screenCrudBook = null;
+        try {
+            screenCrudBook = new CrudAuthor(this, true);
+        } catch (SQLException ex) {
+            Logger.getLogger(JFTelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+        }
         screenCrudBook.setVisible(true);
     }//GEN-LAST:event_btnBookActionPerformed
 

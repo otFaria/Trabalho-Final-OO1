@@ -24,23 +24,19 @@ public class CrudAuthor extends javax.swing.JDialog {
     /**
      * Creates new form CrudBook
      */
-    public CrudAuthor(java.awt.Frame parent, boolean modal) {
+    public CrudAuthor(java.awt.Frame parent, boolean modal) throws SQLException {
         super(parent, modal);
         initComponents();
         this.ClearFilds();
         this.EnableFilds(false);
-    }
-
-    public CrudAuthor() throws SQLException {
+        
         this.editing = false;
         
-        SQLiteConnector pg_connector = new SQLiteConnector("Biblioteca.postgre");
+        SQLiteConnector pg_connector = new SQLiteConnector("Biblioteca.sqlite");
         IDao authorDao = new IDaoAuthorDatabase(pg_connector.getConnection());
         
         this.author_controller = new AuthorController(authorDao);
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
