@@ -71,6 +71,10 @@ public class BookController {
             throw new BookException("Data invalid for update");
         }
     }
+    
+    public Book Find_Book(String Cod_Book){
+        return (Book) repository.find(Cod_Book);
+    }
 
     // Método para listar todos os livros
     public List<Book> listBooks() {

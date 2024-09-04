@@ -73,11 +73,11 @@ public class TMAuthor extends AbstractTableModel {
         
         switch(column) {
             case COL_NAME:
-                return "name";
+                return "NOME";
             case COL_CPF:
-                return "cpf";
+                return "CPF";
             case COL_HOMETOWN:
-                return "hometown";
+                return "CIDADE NATAL";
             default:
                 break;
         }

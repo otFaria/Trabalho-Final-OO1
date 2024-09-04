@@ -8,8 +8,11 @@ import Connection.database.connection.SQLiteConnector;
 import Controller.BookController;
 import Model.Dao.IDao;
 import Model.Dao.IDaoBookDatabase;
-import View.JDialog.ScreenCRUDAuthor.CrudAuthor;
+import Model.entitites.Book;
+import Model.valid.ValidBook;
+import View.JTableModel.TMBook;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,26 +22,30 @@ public class CrudBook extends javax.swing.JDialog {
     
     private boolean editing;
     private BookController bookController;
+    private TMBook tm_book;
     
     /**
      * Creates new form CrudAuthor
      */
-    public CrudBook(java.awt.Frame parent, boolean modal) {
+    public CrudBook(java.awt.Frame parent, boolean modal , TMBook tm_book) throws SQLException {
         super(parent, modal);
         initComponents();
-    }
-
-    public CrudBook() throws SQLException {
+        
         this.editing = false;
         
         SQLiteConnector sql_connector = new SQLiteConnector("Biblioteca.sqlite");
         IDao bookDao = new IDaoBookDatabase(sql_connector.getConnection());
         
         this.bookController = new BookController(bookDao);
+        
+        this.tm_book = tm_book;
+        
+        this.Update_Table();
+        
+        this.ClearFilds();
+        this.EnableFilds(false);
     }
     
-    
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -64,7 +71,7 @@ public class CrudBook extends javax.swing.JDialog {
         btnEdit = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblBook = new javax.swing.JTable();
+        grdBook = new javax.swing.JTable();
 
         jButton4.setText("jButton1");
 
@@ -126,6 +133,11 @@ public class CrudBook extends javax.swing.JDialog {
 
         btnNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/novo_32x32.png"))); // NOI18N
         btnNew.setText("Novo");
+        btnNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNewActionPerformed(evt);
+            }
+        });
 
         btnDel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/del_32x32.png"))); // NOI18N
         btnDel.setText("Excluir");
@@ -137,6 +149,11 @@ public class CrudBook extends javax.swing.JDialog {
 
         btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/cancel_32x32.png"))); // NOI18N
         btnCancel.setText("Cancelar");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
         btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/edit3_32x32.png"))); // NOI18N
         btnEdit.setText("Editar");
@@ -148,8 +165,13 @@ public class CrudBook extends javax.swing.JDialog {
 
         btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/save_32x32.png"))); // NOI18N
         btnSave.setText("Salvar");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
 
-        tblBook.setModel(new javax.swing.table.DefaultTableModel(
+        grdBook.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -160,7 +182,7 @@ public class CrudBook extends javax.swing.JDialog {
                 "Codigo", "Nome", "Autor"
             }
         ));
-        jScrollPane1.setViewportView(tblBook);
+        jScrollPane1.setViewportView(grdBook);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -210,13 +232,95 @@ public class CrudBook extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
-        // TODO add your handling code here:
+        this.editing = false;
+        
+        String Cod_Book_Find = JOptionPane.showInputDialog("Me informe o Codigo do Livro a ser deletado: ");
+        
+        Book fouded = bookController.Find_Book(Cod_Book_Find);
+        
+        if (fouded != null) {
+            bookController.removeBook(Cod_Book_Find);
+        }else{
+            JOptionPane.showMessageDialog(this, "Livro não encontrado !");
+        }
     }//GEN-LAST:event_btnDelActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        // TODO add your handling code here:
+        this.editing = true;
+        
+        String Cod_Book_Find = JOptionPane.showInputDialog("Informe o Código do livro a ser editado: ");
+        
+        Book found = bookController.Find_Book(Cod_Book_Find);
+        
+        if (found != null) {
+            this.FillFilds(found);
+            this.EnableFildsForEdit();
+        }else{
+            JOptionPane.showMessageDialog(this, "Autor não encontrado !");
+            this.editing = false;
+            
+            this.ClearFilds();
+            this.EnableFilds(false);
+        }
     }//GEN-LAST:event_btnEditActionPerformed
 
+    private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
+        this.editing = false;
+        
+        this.ClearFilds();
+        this.EnableFilds(true);
+    }//GEN-LAST:event_btnNewActionPerformed
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        this.editing = false;
+        
+        this.ClearFilds();
+        this.EnableFilds(false);
+    }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        
+        ValidBook valid_book = new ValidBook();
+        
+        Book newBook = valid_book.validateBook(txtBookCod.getText(), txtName.getText(), txtAuthor.getText());
+        
+        if (editing) {
+            this.bookController.updateBook(txtBookCod.getText(), newBook);
+            JOptionPane.showMessageDialog(this, "Livro atualizado com sucesso!");
+        }else{
+            
+        }
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    
+    public void ClearFilds(){
+        txtAuthor.setText("");
+        txtBookCod.setText("");
+        txtName.setText("");
+    }
+    
+    public void EnableFilds(Boolean flag){
+        txtAuthor.setEnabled(flag);
+        txtName.setEnabled(flag);
+        txtBookCod.setEnabled(flag);
+    }
+    
+    public void EnableFildsForEdit(){
+        txtBookCod.setEnabled(false);
+        txtName.setEnabled(true);
+        txtAuthor.setEnabled(true);
+    }
+    
+    public void FillFilds(Book A1){
+        txtAuthor.setText(A1.getAuthorId());
+        txtName.setText(A1.getName());
+        txtBookCod.setText(A1.getCod_book());
+    }
+    
+    public void Update_Table(){
+        tm_book = new TMBook(bookController.listBooks());
+        grdBook.setModel(tm_book);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
@@ -224,6 +328,7 @@ public class CrudBook extends javax.swing.JDialog {
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnNew;
     private javax.swing.JButton btnSave;
+    private javax.swing.JTable grdBook;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
     private javax.swing.JPanel jPanel1;
@@ -232,7 +337,6 @@ public class CrudBook extends javax.swing.JDialog {
     private javax.swing.JLabel lblCod_Book;
     private javax.swing.JLabel lblNameBook;
     private javax.swing.JLabel lbnCRUDBook;
-    private javax.swing.JTable tblBook;
     private javax.swing.JTextField txtAuthor;
     private javax.swing.JTextField txtBookCod;
     private javax.swing.JTextField txtName;

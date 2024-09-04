@@ -141,7 +141,11 @@ public class JFTelaInicial extends javax.swing.JFrame {
 
     private void btnBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookActionPerformed
         CrudBook screenCrudBook = null;
-        screenCrudBook = new CrudBook(this, true);
+        try {
+            screenCrudBook = new CrudBook(this, true, tm_book);
+        } catch (SQLException ex) {
+            Logger.getLogger(JFTelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+        }
         screenCrudBook.setVisible(true);
     }//GEN-LAST:event_btnBookActionPerformed
 

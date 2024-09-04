@@ -92,5 +92,4 @@ public class IDaoAuthorDatabase implements IDao<Author> {
         }
         return listAuthors;
     }
-
 }

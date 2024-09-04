@@ -65,9 +65,9 @@ public class TMLibrary extends AbstractTableModel {
         switch (column) {
             
             case COL_NAME:
-                return "Name";
+                return "NOME";
             case COL_COD_BOOK:
-                return "Cod_Book";
+                return "COD_LIVRO";
             default:
                 break;
         }

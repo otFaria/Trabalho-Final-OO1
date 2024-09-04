@@ -9,6 +9,7 @@ import Controller.AuthorController;
 import Model.Dao.IDao;
 import Model.Dao.IDaoAuthorDatabase;
 import Model.entitites.Author;
+import Model.valid.ValidAuthor;
 import View.JTableModel.TMAuthor;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -27,6 +28,7 @@ public class CrudAuthor extends javax.swing.JDialog {
      * Creates new form CrudBook
      */
     public CrudAuthor(java.awt.Frame parent, boolean modal, TMAuthor tm_author) throws SQLException {
+        
         super(parent, modal);
         initComponents();
         this.ClearFilds();
@@ -233,6 +235,7 @@ public class CrudAuthor extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
+        
         this.editing = false;
         Author find_author = new Author();
         
@@ -244,9 +247,11 @@ public class CrudAuthor extends javax.swing.JDialog {
             this.author_controller.removeAuthor(Cpf_informed);
             this.ClearFilds();
             this.EnableFilds(false);
-            JOptionPane.showMessageDialog(this, "Autor deletado com sucesso");
             
             this.Update_Table();
+            
+            JOptionPane.showMessageDialog(this, "Autor deletado com sucesso !");
+            
         }else{
             JOptionPane.showMessageDialog(this, "Autor não encontrado !");
             this.ClearFilds();
@@ -289,13 +294,18 @@ public class CrudAuthor extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        Author newAuthor = new Author(txtCPF.getText(), txtName.getText(), txtHometown.getText());
+        
+        ValidAuthor valid_author = new ValidAuthor();
+        Author newAuthor = valid_author.ValidAuthor(txtCPF.getText(), txtName.getText(), txtHometown.getText());
         
         if(this.editing)
             this.author_controller.updateAuthor(txtCPF.getText(), newAuthor);
-        else 
-            this.author_controller.addAuthor(txtCPF.getText(), txtName.getText(), txtHometown.getText());
-        
+        else{ 
+            if (author_controller.findAuthor(newAuthor.getCpf()) != null) 
+                JOptionPane.showMessageDialog(this, "O Autor já esta cadastrado !");
+            else
+                this.author_controller.addAuthor(txtCPF.getText(), txtName.getText(), txtHometown.getText());
+        }
         this.Update_Table();
         this.editing = false;
         this.ClearFilds();

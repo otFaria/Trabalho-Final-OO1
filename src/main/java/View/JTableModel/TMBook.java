@@ -13,11 +13,17 @@ import javax.swing.table.AbstractTableModel;
  * @author jc
  */
 public class TMBook extends AbstractTableModel {
+    
     private List listBooks;
     
     private final int COL_COD_BOOK = 0;
     private final int COL_NAME = 1;
     private final int COL_AUTHOR_ID = 2;
+    
+    
+      public TMBook(List listBooks) {
+        this.listBooks = listBooks;
+    }
     
     @Override
     public int getRowCount() {
@@ -66,11 +72,11 @@ public class TMBook extends AbstractTableModel {
         
         switch (column) {
             case COL_COD_BOOK:
-                return "Cod_Book";
+                return "COD_LIVRO";
             case COL_NAME:
-                return "Name";
+                return "NOME";
             case COL_AUTHOR_ID:
-                return "Author_id"; 
+                return "AUTOR_ID"; 
             default:
                 break;
         }

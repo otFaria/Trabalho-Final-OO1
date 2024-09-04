@@ -73,15 +73,7 @@ public class AuthorController {
     
     public Author findAuthor(String cpf){
         
-        List <Author> listAuthor = listAuthors();
-        
-        for (Author author : listAuthor) {
-            if(author.getCpf().equalsIgnoreCase(cpf)){
-                return author;
-            }
-        }
-        
-        return null;
+        return (Author) repository.find(cpf);
     }
 
     // Método para listar todos os autores
