@@ -10,6 +10,7 @@ import Model.Dao.IDaoAuthorDatabase;
 import Model.file.SerializerAuthor.ISerializerJSONAuthor;
 import View.JDialog.ScreenCRUDAuthor.CrudAuthor;
 import View.JDialog.ScreenCRUDBook.CrudBook;
+import View.JDialog.ScreenCRUDLibrary.CrudLibrary;
 import View.JTableModel.TMAuthor;
 import View.JTableModel.TMBook;
 import View.JTableModel.TMLibrary;
@@ -24,18 +25,13 @@ import javax.swing.JDialog;
  */
 public class JFTelaInicial extends javax.swing.JFrame {
 
-    private IDao dao_author;
-    private SQLiteConnector connection;
+
     private TMAuthor tm_author;
     private TMBook tm_book;
     private TMLibrary tm_library;
     
     public JFTelaInicial() throws SQLException {
         initComponents();
-        this.connection = new SQLiteConnector("Biblioteca.db");
-        
-        //Data Base
-        this.dao_author = new IDaoAuthorDatabase(connection.getConnection());
     }
 
     /**
@@ -153,7 +149,12 @@ public class JFTelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBookActionPerformed
 
     private void btnLibraryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLibraryActionPerformed
-       
+        try {
+            CrudLibrary screenLibrary = new CrudLibrary(this, true, tm_library);
+            screenLibrary.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(JFTelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnLibraryActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

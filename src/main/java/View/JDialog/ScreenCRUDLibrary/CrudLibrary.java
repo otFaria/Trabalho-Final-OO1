@@ -4,21 +4,17 @@
  */
 package View.JDialog.ScreenCRUDLibrary;
 
-import View.JDialog.ScreenCRUDBook.*;
 import Connection.database.connection.SQLiteConnector;
-import Controller.BookController;
 import Controller.LibraryController;
 import Model.Dao.IDao;
-import Model.Dao.IDaoBookDatabase;
 import Model.Dao.IDaoLibraryDatabase;
-import Model.entitites.Author;
 import Model.entitites.Book;
-import Model.valid.ValidAuthor;
-import Model.valid.ValidBook;
-import View.JTableModel.TMBook;
+import View.JDialog.ScreenCRUDLibrary.ScreenChooseBooks.JDlgChooseBook;
 import View.JTableModel.TMLibrary;
+import java.awt.Frame;
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -29,6 +25,7 @@ public class CrudLibrary extends javax.swing.JDialog {
     private boolean editing;
     private LibraryController libController;
     private TMLibrary tm_lib;
+    private Book book_add;
     
     /**
      * Creates new form CrudAuthor
@@ -47,9 +44,6 @@ public class CrudLibrary extends javax.swing.JDialog {
         this.tm_lib = tm_lib;
         
         this.Update_Table();
-//        
-//        this.ClearFilds();
-//        this.EnableFilds(false);
     }
     
     /**
@@ -218,7 +212,14 @@ public class CrudLibrary extends javax.swing.JDialog {
     }//GEN-LAST:event_btnDelActionPerformed
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
-        //add JDialog for select books in your library
+       JDlgChooseBook screen_choose_book = null;
+        try {
+            screen_choose_book = new JDlgChooseBook(new Frame(), true, book_add);
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudLibrary.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+       screen_choose_book.setVisible(true);
     }//GEN-LAST:event_btnNewActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
