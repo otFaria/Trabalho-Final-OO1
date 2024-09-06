@@ -12,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -26,7 +28,7 @@ public class IDaoLibraryDatabase implements IDao<Library>{
 
     @Override
     public void save(Library lib) {
-        String sql = "INSERT INTO library (name, id_book) VALUES (?, ?)";
+        String sql = "INSERT INTO library (name, cod_book) VALUES (?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, lib.getName());
             stmt.setString(2, lib.getId_book());
@@ -68,7 +70,7 @@ public class IDaoLibraryDatabase implements IDao<Library>{
                 if (rs.next()) {
                     return new Library(
                             rs.getString("name"),
-                            rs.getString("id_book")
+                            rs.getString("cod_book")
                     );
                 }
             }
@@ -88,12 +90,24 @@ public class IDaoLibraryDatabase implements IDao<Library>{
             while (rs.next()) {
                 listLibrarys.add(new Library(
                         rs.getString("name"),
-                        rs.getString("id_book")
+                        rs.getString("cod_book")
                 ));
             }
         } catch (SQLException e) {
             System.out.println("Erro ao listar bibliotecas: " + e.getMessage());
         }
         return listLibrarys;
+    }
+    
+    @Override
+    public void insert(String cod_book) {
+        String query = "INSERT INTO Library (cod_book) VALUES (?, ?)";
+        
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, cod_book);
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(IDaoLibraryDatabase.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

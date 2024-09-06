@@ -38,7 +38,7 @@ public class JDlgChooseBook extends javax.swing.JDialog {
         
         this.book = book;
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -91,6 +91,11 @@ public class JDlgChooseBook extends javax.swing.JDialog {
                 "COD_Livro", "Nome", "Author"
             }
         ));
+        grdBook.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                grdBookMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(grdBook);
 
         btnAddLivro.setBackground(new java.awt.Color(51, 153, 0));
@@ -177,27 +182,35 @@ public class JDlgChooseBook extends javax.swing.JDialog {
         this.book = getObjetoSelecionadoNaGrid();
         this.dispose();
     }//GEN-LAST:event_btnAddLivroActionPerformed
+
+    private void grdBookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grdBookMouseClicked
+        this.book = getObjetoSelecionadoNaGrid();
+        this.dispose();
+    }//GEN-LAST:event_grdBookMouseClicked
     
     public void Update_Table(){
         tm_book = new TMBook(book_controller.listBooks());
         grdBook.setModel(tm_book);
     }
     
-    public Book getObjetoSelecionadoNaGrid(){
-        
+    public Book getSelectedBook() {
+        return this.book;
+    }
+    
+    public Book getObjetoSelecionadoNaGrid() {
         int linhaSelecionada = grdBook.getSelectedRow();
-        int ColunaSelecionada = grdBook.getSelectedColumn();
+        int columnSelecionada = grdBook.getColumnCount();
 
         if (linhaSelecionada >= 0) {
-            tm_book = (TMBook) grdBook.getModel();
+            TMBook tmCadBook = (TMBook) grdBook.getModel();
 
-            Book B1 = (Book) tm_book.getValueAt(linhaSelecionada, ColunaSelecionada);
-             
-            return B1;
+//          Book book = (Book) 
+            return tmCadBook.getObjectBook(linhaSelecionada);
         }
-        
+
         return null;
     }
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddLivro;

@@ -14,15 +14,19 @@ import javax.swing.table.AbstractTableModel;
  */
 public class TMBook extends AbstractTableModel {
     
-    private List listBooks;
+    private List<Book> listBooks;
     
     private final int COL_COD_BOOK = 0;
     private final int COL_NAME = 1;
     private final int COL_AUTHOR_ID = 2;
     
     
-      public TMBook(List listBooks) {
+    public TMBook(List<Book> listBooks) {
         this.listBooks = listBooks;
+    }
+      
+    public Book getObjectBook(int row) {
+        return listBooks.get(row);
     }
     
     @Override

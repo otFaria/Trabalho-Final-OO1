@@ -132,4 +132,9 @@ public class IDaoLibraryFile implements IDao<Library> {
         }
         return null;
     }
+
+    @Override
+    public void insert(String id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

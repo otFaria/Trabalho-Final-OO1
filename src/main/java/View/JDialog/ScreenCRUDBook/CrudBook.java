@@ -10,8 +10,12 @@ import Model.Dao.IDao;
 import Model.Dao.IDaoBookDatabase;
 import Model.entitites.Book;
 import Model.valid.ValidBook;
+import View.JDialog.ScreenDescribeBook.JDlgDescribeBook;
 import View.JTableModel.TMBook;
+import java.awt.Frame;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -72,6 +76,7 @@ public class CrudBook extends javax.swing.JDialog {
         btnSave = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         grdBook = new javax.swing.JTable();
+        btnShowInformations = new javax.swing.JButton();
 
         jButton4.setText("jButton1");
 
@@ -184,23 +189,38 @@ public class CrudBook extends javax.swing.JDialog {
         ));
         jScrollPane1.setViewportView(grdBook);
 
+        btnShowInformations.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/search.png"))); // NOI18N
+        btnShowInformations.setText("Exibir informaç�o do livro");
+        btnShowInformations.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnShowInformationsMouseClicked(evt);
+            }
+        });
+        btnShowInformations.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnShowInformationsActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lbnCRUDBook, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(130, 130, 130)
+                .addGap(43, 43, 43)
                 .addComponent(btnNew, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(182, 182, 182))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnShowInformations)
+                .addGap(71, 71, 71))
             .addComponent(jScrollPane1)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -213,13 +233,13 @@ public class CrudBook extends javax.swing.JDialog {
                 .addGap(32, 32, 32)
                 .addComponent(lbnCRUDBook, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnDel, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
-                        .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE))
-                    .addComponent(btnNew, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDel, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+                    .addComponent(btnNew, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnShowInformations, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -297,6 +317,24 @@ public class CrudBook extends javax.swing.JDialog {
         this.EnableFilds(false);
     }//GEN-LAST:event_btnSaveActionPerformed
 
+    private void btnShowInformationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowInformationsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnShowInformationsActionPerformed
+
+    private void btnShowInformationsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnShowInformationsMouseClicked
+        JDlgDescribeBook describeBookDialog;
+        try {
+            describeBookDialog = new JDlgDescribeBook(new Frame(), true);
+            describeBookDialog.setVisible(true);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudBook.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        // Torne o JDialog visível
+        
+    }//GEN-LAST:event_btnShowInformationsMouseClicked
+
     
     public void ClearFilds(){
         txtAuthor.setText("");
@@ -333,6 +371,7 @@ public class CrudBook extends javax.swing.JDialog {
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnNew;
     private javax.swing.JButton btnSave;
+    private javax.swing.JButton btnShowInformations;
     private javax.swing.JTable grdBook;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;

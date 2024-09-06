@@ -78,4 +78,8 @@ public class LibraryController {
     public List<Library> listLibrary() {
         return repository.findAll();
     }
+    
+    public void insertIntoLibrary(String cod_book) {
+        repository.insert(cod_book);
+    }
 }

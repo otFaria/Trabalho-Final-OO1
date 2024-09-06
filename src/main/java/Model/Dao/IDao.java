@@ -18,4 +18,6 @@ public interface IDao<T> {
 
     //GET
     List<T> findAll();
+    
+    void insert(String id);
 }

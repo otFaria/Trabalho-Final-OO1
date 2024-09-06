@@ -37,17 +37,19 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="lbnCRUDBook" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="130" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
               <Component id="btnNew" pref="141" max="32767" attributes="0"/>
-              <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="btnDel" min="-2" pref="141" max="-2" attributes="0"/>
-              <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="btnCancel" min="-2" pref="141" max="-2" attributes="0"/>
-              <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="btnEdit" min="-2" pref="141" max="-2" attributes="0"/>
-              <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="btnSave" min="-2" pref="141" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="182" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="btnShowInformations" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
           </Group>
           <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
@@ -63,14 +65,13 @@
               <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
               <Component id="lbnCRUDBook" min="-2" pref="69" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                      <Component id="btnCancel" alignment="3" min="-2" pref="65" max="-2" attributes="0"/>
-                      <Component id="btnDel" alignment="3" pref="68" max="32767" attributes="0"/>
-                      <Component id="btnSave" alignment="3" min="-2" pref="65" max="-2" attributes="0"/>
-                      <Component id="btnEdit" alignment="3" pref="68" max="32767" attributes="0"/>
-                  </Group>
-                  <Component id="btnNew" min="-2" pref="65" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="btnCancel" alignment="3" min="-2" pref="65" max="-2" attributes="0"/>
+                  <Component id="btnDel" alignment="3" pref="68" max="32767" attributes="0"/>
+                  <Component id="btnSave" alignment="3" min="-2" pref="65" max="-2" attributes="0"/>
+                  <Component id="btnEdit" alignment="3" pref="68" max="32767" attributes="0"/>
+                  <Component id="btnNew" alignment="3" min="-2" pref="65" max="-2" attributes="0"/>
+                  <Component id="btnShowInformations" alignment="3" min="-2" pref="65" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
@@ -272,5 +273,17 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JButton" name="btnShowInformations">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Imagens/search.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Exibir informa&#xe7;&#xfffd;o do livro"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnShowInformationsMouseClicked"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnShowInformationsActionPerformed"/>
+      </Events>
+    </Component>
   </SubComponents>
 </Form>
